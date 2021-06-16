@@ -1,0 +1,195 @@
+@use "./base/mixins" as *;
+@use "./base/variables" as *;
+@use "./base/reset";
+@use "./base/fonts";
+@use "../icons/style.css";
+
+html {
+  font-size: 62.5%;
+}
+.container {
+  width: 80%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+header {
+  padding: 13px 0;
+  background-color: $red;
+  nav {
+    display: flex;
+    align-items: center;
+    .logo {
+      margin-right: auto;
+    }
+    .menu {
+      display: flex;
+      li {
+        a {
+          padding: 5px;
+          font-family: $font_monserrat;
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: $white;
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: all 300ms;
+          position: relative;
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: 0;
+            background-color: $yellow;
+            transition: all 300ms;
+          }
+          &:hover,
+          &.active {
+            color: $yellow;
+          }
+        }
+      }
+      &--primary {
+        li {
+          margin-right: 4.5rem;
+          a:hover,
+          a.active {
+            &::after {
+              height: 3px;
+            }
+          }
+        }
+      }
+      &--secondary {
+        li {
+          margin-right: 3rem;
+          &:last-child {
+            margin-right: 0;
+          }
+          a {
+            font-size: 1.9rem;
+          }
+        }
+      }
+    }
+  }
+}
+main {
+  background-image: url("../images/berg.png");
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 107px);
+  padding: 100px 0;
+  .line {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -43px;
+      left: calc(50% - 38px);
+      background-color: $red;
+      width: 60px;
+      height: 3px;
+    }
+  }
+  .container {
+    > h1 {
+      margin-bottom: 19px;
+      font-family: $font_kaushan;
+      font-size: 2.4rem;
+      text-align: center;
+      color: $black;
+    }
+    > h2 {
+      margin-bottom: 109px;
+      font-family: $font_monserrat;
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      color: $black;
+    }
+  }
+  section {
+    @include make-col(2, 70px);
+    .person {
+      @include flex(row, space-between, flex-start);
+      img {
+        width: 21%;
+        border-radius: 50%;
+      }
+      div {
+        width: 73%;
+        padding-top: 12px;
+        h1 {
+          margin-bottom: 13px;
+          font-family: $font_monserrat;
+          font-weight: 400;
+          font-size: 1.4rem;
+          text-transform: uppercase;
+          color: $black;
+        }
+        h2 {
+          font-family: $font_roboto;
+          font-weight: 300;
+          font-style: italic;
+          text-transform: capitalize;
+          color: $black;
+          &.line::after {
+            left: 0;
+            bottom: -15px;
+          }
+        }
+        p {
+          margin-top: 45px;
+          font-family: $font_roboto;
+          font-size: 1.5rem;
+          line-height: 2.4rem;
+          font-weight: 400;
+          color: $graylight;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  header nav .menu--primary li {
+    margin-right: 2.5rem;
+  }
+  main section {
+    @include make-col(2, 32px);
+    .person {
+      img {
+        width: 28%;
+      }
+      div {
+        width: 68%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  header nav {
+    flex-direction: column;
+    .logo {
+      margin-right: 0;
+      margin-bottom: 38px;
+    }
+    .menu--secondary {
+      display: none;
+    }
+  }
+  main section {
+    @include make-col(1, 40px);
+  }
+}
